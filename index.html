@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>border-radius Card With CSS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            margin: 10px;
+        }
+      .cart {
+        position: relative;
+        background-color: rgb(0, 153, 255);
+        height: 200px;
+        width: 200px;
+        border-radius: 2rem;
+        color: white;
+        font-weight: bold;
+      }
+      .circle {
+        background-color: white;
+        height: 46px;
+        width: 46px;
+        border-radius: 50%;
+        position: absolute;
+        right: 0;
+      }
+      .circle::after {
+        content: "";
+        height: 40px;
+        width: 40px;
+        position: absolute;
+        left: -40px;
+        top: 0px;
+        box-shadow: 20px -20px 0 white;
+        border-radius: 50%;
+      }
+      .circle::before {
+        content: "";
+        height: 40px;
+        width: 40px;
+        position: absolute;
+        right: 0px;
+        top: 46px;
+        box-shadow: 20px -20px 0 white;
+        border-radius: 50%;
+      }
+      .b-circle {
+        position: absolute;
+        border: 1px solid #000;
+        height: 40px;
+        width: 40px;
+        border-radius: 2rem;
+        right: 0;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .b-circle:hover {
+        background-color: rgb(0, 153, 255);
+      }
+      .cart-content {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cart">
+      <div class="circle">
+        <a href="#" class="b-circle">
+          <i class="fa-solid fa-up-right-from-square"></i>
+        </a>
+      </div>
+      <div class="cart-content">
+        <div class="bar">
+          <canvas id="my_canvas" width="150" height="150"></canvas>
+        </div>
+        <div class="content"><p>Avg. Scores</p></div>
+      </div>
+    </div>
+
+    <script>
+      var ctx = document.getElementById("my_canvas").getContext("2d");
+      var al = 0;
+      var start = -0.5 * Math.PI;
+      var cw = ctx.canvas.width;
+      var ch = ctx.canvas.height;
+      var diff;
+      function progressSim() {
+        diff = (al / 100) * Math.PI * 2;
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.lineWidth = 10;
+        ctx.lineCap = "round";
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "white";
+        ctx.textAlign = "center";
+        ctx.font = "26px Arial";
+        ctx.fillText(al + "%", cw * 0.5, ch * 0.5 + 2, cw);
+        ctx.beginPath();
+        ctx.arc(75, 70, 50, start, diff + start, false);
+        ctx.stroke();
+        al = al + 1;
+        if (al >= 101) {
+          clearTimeout(sim);
+        }
+      }
+      var sim = setInterval(progressSim, 10);
+      window.onload = progressSim;
+    </script>
+  </body>
+</html>
